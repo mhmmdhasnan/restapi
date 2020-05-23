@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Filters\OauthFilter;
+use App\Filters\Options;
 use CodeIgniter\Config\BaseConfig;
 
 class Filters extends BaseConfig
@@ -14,11 +15,13 @@ class Filters extends BaseConfig
 		'toolbar'  => \CodeIgniter\Filters\DebugToolbar::class,
 		'honeypot' => \CodeIgniter\Filters\Honeypot::class,
 		'oauthfilter' => \App\Filters\OauthFilter::class,
+		'options' => \App\Filters\Options::class,
 	];
 
 	// Always applied before every request
 	public $globals = [
 		'before' => [
+			'options'
 			//'honeypot'
 			// 'csrf',
 		],
