@@ -11,7 +11,7 @@ class blog extends ResourceController
 
     public function index()
     {
-        $posts = $this->model->findAll();
+        $posts = $this->model->orderBy('post_id', 'DESC')->findAll();
         return $this->respond($posts);
     }
 
@@ -26,7 +26,7 @@ class blog extends ResourceController
         ];
 
         if (!$this->validate($rules)) {
-            return $this->fail($this->validator->getErrors());
+            return $this->fail(implode('<br>', $this->validator->getErrors()));
         } else {
             $file = $this->request->getFile('featured_image');
             if (!$file->isValid())
@@ -70,7 +70,7 @@ class blog extends ResourceController
 
 
         if (!$this->validate($rules)) {
-            return $this->fail($this->validator->getErrors());
+            return $this->fail(implode('<br>', $this->validator->getErrors()));
         } else {
             // $input = $this->request->getRawInput();
             $data = [
@@ -89,7 +89,8 @@ class blog extends ResourceController
             }
 
             $this->model->save($data);
-            return $this->respondCreated($data);
+            return $this->show($id);
+            // return $this->respondCreated($data);
         }
     }
 
